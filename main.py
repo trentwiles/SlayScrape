@@ -5,6 +5,7 @@ import json
 import os
 
 details = []
+os.system("rm -rf result.json && touch result.json")
 site = sys.argv[1]
 r = requests.get(site, headers={"User-agent":"RiversideRocks"})
 soup = BeautifulSoup(r.text, 'html.parser') # removes warning
@@ -18,10 +19,10 @@ for meta in soup.find_all('meta'):
     else:
       desc = str(meta.get("content"))
 
-json = open("result.json")
+js = open("result.json", "w")
 details.append(site)
 details.append(title)
 details.append(desc)
-json.write(json.dumps(details))
-file.close()
+js.write(json.dumps(details))
+js.close()
 #print(soup.meta)
