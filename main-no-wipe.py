@@ -15,20 +15,21 @@ the working directory
 details = []
 #os.system("rm -rf result.json && touch result.json")
 site = sys.argv[1]
-r = requests.get(site, headers={"User-agent":"RiversideRocks"})
+r = requests.get("http://" + site, headers={"User-agent":"RiversideRocks"})
 soup = BeautifulSoup(r.text, 'html.parser') # removes warning
 title = soup.title.string
 
 for meta in soup.find_all('meta'):
     if str(meta.get("property")) == "None":
       print("Skipping meta tag as it is blank...")
+      desc = "This website can't give us a description :/"
     elif str(meta.get("property")) != "og:description":
       print("Skipping meta tag as it is wrong")
+      desc = "This website can't give us a description :/"
     else:
-      try:
          desc = str(meta.get("content"))
-      except:
-         desc = "This website can't give us a description :/"
+      #except:
+      #   desc = "This website can't give us a description :/"
 
 js = open("result.json", "a")
 details.append(site)
