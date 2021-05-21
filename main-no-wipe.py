@@ -25,7 +25,10 @@ for meta in soup.find_all('meta'):
     elif str(meta.get("property")) != "og:description":
       print("Skipping meta tag as it is wrong")
     else:
-      desc = str(meta.get("content"))
+      try:
+         desc = str(meta.get("content"))
+      except:
+         desc = "This website can't give us a description :/"
 
 js = open("result.json", "a")
 details.append(site)
